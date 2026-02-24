@@ -103,6 +103,19 @@ RegisterNetEvent('txsv:req:healPlayer', function(id)
   TriggerEvent('txsv:logger:menuEvent', src, 'healPlayer', allow, id)
 end)
 
+RegisterNetEvent('txsv:req:wipePlayer', function(id)
+  local src = source
+  if type(id) ~= 'string' and type(id) ~= 'number' then
+    return
+  end
+  id = tonumber(id)
+  local allow = PlayerHasTxPermission(src, 'all_permissions')
+  if allow then
+    TriggerEvent('era-utils:Server:Wipe', id, src)
+  end
+  TriggerEvent('txsv:logger:menuEvent', src, 'wipePlayer', allow, id)
+end)
+
 RegisterNetEvent('txsv:req:showPlayerIDs', function(enabled)
   local src = source
   local allow = PlayerHasTxPermission(src, 'menu.viewids')

@@ -154,12 +154,17 @@
                 "not_in_veh_error": "Non sei su un veicolo!",
                 "spawn": {
                     "title": "Spawna",
-                    "label": "Spawna un veicolo dal nmome",
+                    "label": "Spawna un veicolo dal nome",
                     "dialog_title": "Spawna veicolo",
                     "dialog_desc": "Inserisci il nome del modello del veicolo che vuoi spawnare.",
                     "dialog_success": "Veicolo spawnato!",
                     "dialog_error": "Il modello '%{modelName}' non esiste!",
                     "dialog_info": "Provando a spawnare %{modelName}."
+                },
+                "menu": {
+                    "title": "Menu",
+                    "label": "Spawna un veicolo dal menu",
+                    "success": "Menu veicoli aperto!"
                 },
                 "fix": {
                     "title": "Ripara",
@@ -175,9 +180,9 @@
                     "title": "Boost",
                     "label": "Boosta l'auto per un maggiore divertimento (e forse velocità)",
                     "success": "Veicolo boostato!",
-                    "already_boosted": "This vehicle was already boosted.",
-                    "unsupported_class": "This vehicle class is not supported.",
-                    "redm_not_mounted": "You can only boost when mounted on a horse."
+                    "already_boosted": "Questo veicolo è già stato potenziato.",
+                    "unsupported_class": "Questa classe di veicolo non è supportata.",
+                    "redm_not_mounted": "Puoi potenziare solo quando sei montato su un cavallo."
                 }
             },
             "heal": {
@@ -225,11 +230,11 @@
                 "zero_players": "Nessun giocatore trovato."
             },
             "filter": {
-                "label": "Filter by",
-                "no_filter": "No Filter",
-                "is_admin": "Is Admin",
-                "is_injured": "Is Injured / Dead",
-                "in_vehicle": "In Vehicle"
+                "label": "Filtra per",
+                "no_filter": "Nessun Filtro",
+                "is_admin": "È Admin",
+                "is_injured": "È Ferito / Morto",
+                "in_vehicle": "In Veicolo"
             },
             "sort": {
                 "label": "Ordina per",
@@ -265,7 +270,8 @@
                         "dm": "DM",
                         "warn": "Warn",
                         "kick": "Kick",
-                        "set_admin": "Dai Admin"
+                        "set_admin": "Dai Admin",
+                        "wipe": "Wipe"
                     },
                     "dm_dialog": {
                         "title": "Messaggio Diretto",
@@ -284,6 +290,9 @@
                         "description": "Per che motivo stai kickando questo giocatore?",
                         "placeholder": "Motivo...",
                         "success": "Il player è stato kickato!"
+                    },
+                    "wipe_dialog": {
+                        "success": "Aprendo il menu wipe..."
                     }
                 },
                 "interaction": {
@@ -302,7 +311,7 @@
                         "spectate_failed": "Impossibile risolvere il bersaglio! Uscendo dallo Spectate.",
                         "spectate_yourself": "Non puoi spectarti da solo.",
                         "freeze_yourself": "Non puoi freezarti da solo.",
-                        "spectate_cycle_failed": "There are no players to cycle to."
+                        "spectate_cycle_failed": "Non ci sono giocatori da ciclare."
                     }
                 },
                 "troll": {

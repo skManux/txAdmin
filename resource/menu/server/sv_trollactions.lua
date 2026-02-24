@@ -5,7 +5,7 @@ if not TX_MENU_ENABLED then return end
 
 RegisterNetEvent('txsv:req:troll:setDrunk', function(id)
     local src = source
-    local allow = PlayerHasTxPermission(src, 'players.troll')
+    local allow = false --PlayerHasTxPermission(src, 'players.troll')
     if allow then
         TriggerClientEvent('txcl:setDrunk', id)
     end
@@ -14,7 +14,7 @@ end)
 
 RegisterNetEvent('txsv:req:troll:setOnFire', function(id)
     local src = source
-    local allow = PlayerHasTxPermission(src, 'players.troll')
+    local allow = false --PlayerHasTxPermission(src, 'players.troll')
     if allow then
         TriggerClientEvent('txcl:setOnFire', id)
     end
@@ -23,7 +23,7 @@ end)
 
 RegisterNetEvent('txsv:req:troll:wildAttack', function(id)
     local src = source
-    local allow = PlayerHasTxPermission(src, 'players.troll')
+    local allow = false --PlayerHasTxPermission(src, 'players.troll')
     if allow then
         TriggerClientEvent('txcl:wildAttack', id)
     end

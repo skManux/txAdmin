@@ -144,6 +144,9 @@ AddEventHandler('txsv:logger:menuEvent', function(source, action, allowed, data)
         if type(data) ~= 'string' then return end
         message = "spawned a vehicle (model: " .. data .. ")"
 
+    elseif action == 'vehicleMenu' then
+        message = "opened the vehicle menu"
+
     elseif action == 'deleteVehicle' then
         message = "deleted a vehicle"
 
@@ -166,6 +169,10 @@ AddEventHandler('txsv:logger:menuEvent', function(source, action, allowed, data)
     elseif action == 'clearArea' then
         if type(data) ~= 'number' then return end
         message = "cleared an area with ".. data .."m radius"
+
+    --MODERATION modal options
+    elseif action == 'wipePlayer' then
+        message = "wiped player " .. getLogPlayerName(data)
 
     --INTERACTION modal options
     elseif action == 'spectatePlayer' then

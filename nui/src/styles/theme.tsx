@@ -4,7 +4,7 @@ export default {
   palette: {
     mode: "dark",
     primary: {
-      main: "rgba(0,197,140,0.87)",
+      main: "rgb(147, 109, 255)", // violetto principale
     },
     success: {
       main: "rgba(0,149,108,0.87)",

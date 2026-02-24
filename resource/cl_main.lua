@@ -149,6 +149,7 @@ CreateThread(function()
         '/txAdmin:menu:boostVehicle',
         '/txAdmin:menu:deleteVehicle',
         '/txAdmin:menu:fixVehicle',
+        '/txAdmin:menu:vehicleMenu',
         '/txAdmin:menu:spawnVehicle',
 
         --Convars
