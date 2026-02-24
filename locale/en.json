@@ -161,6 +161,11 @@
                     "dialog_error": "The vehicle model name '%{modelName}' does not exist!",
                     "dialog_info": "Trying to spawn %{modelName}."
                 },
+                "menu": {
+                    "title": "Menu",
+                    "label": "Spawn a given vehicle from the menu",
+                    "success": "Vehicle menu opened!"
+                },
                 "fix": {
                     "title": "Fix",
                     "label": "Will repair the vehicle to its maximum health",
@@ -265,7 +270,8 @@
                         "dm": "DM",
                         "warn": "Warn",
                         "kick": "Kick",
-                        "set_admin": "Give Admin"
+                        "set_admin": "Give Admin",
+                        "wipe": "Wipe"
                     },
                     "dm_dialog": {
                         "title": "Direct Message",
@@ -284,6 +290,9 @@
                         "description": "What is the reason for kicking this player?",
                         "placeholder": "Reason...",
                         "success": "Player kicked!"
+                    },
+                    "wipe_dialog": {
+                        "success": "Opening wipe menu..."
                     }
                 },
                 "interaction": {

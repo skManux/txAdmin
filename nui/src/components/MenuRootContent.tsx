@@ -49,7 +49,8 @@ export const MenuRootContent: React.FC = React.memo(() => {
         color="textSecondary"
         style={{
           fontWeight: 500,
-          marginTop: -20,
+          marginTop: -12,
+          marginRight: 15,
           textAlign: "right",
           fontSize: 12,
         }}

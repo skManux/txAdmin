@@ -98,6 +98,11 @@ RegisterSecureNuiCallback('spawnWeapon', function(weapon, cb)
     cb({})
 end)
 
+RegisterSecureNuiCallback('wipePlayer', function(data, cb)
+    TriggerServerEvent('txsv:req:wipePlayer', tonumber(data.id))
+    cb({})
+end)
+
 RegisterSecureNuiCallback('healPlayer', function(data, cb)
     TriggerServerEvent('txsv:req:healPlayer', tonumber(data.id))
     cb({})

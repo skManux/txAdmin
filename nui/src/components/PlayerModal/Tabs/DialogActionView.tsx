@@ -202,6 +202,17 @@ const DialogActionView: React.FC = () => {
     setModalOpen(false);
   };
 
+  const handleWipe = () => {
+    if (!userHasPerm("all_permissions", playerPerms)) return showNoPerms("Wipe");
+
+    closeMenu();
+    fetchNui("wipePlayer", { id: assocPlayer.id });
+    enqueueSnackbar(
+      t("nui_menu.player_modal.actions.moderation.wipe_dialog.success"),
+      { variant: "success" }
+    );
+  };
+
   //Interaction
   const handleHeal = () => {
     if (!userHasPerm("players.heal", playerPerms)) return showNoPerms("Heal");
@@ -337,6 +348,14 @@ const DialogActionView: React.FC = () => {
           disabled={!userHasPerm("manage.admins", playerPerms)}
         >
           {t("nui_menu.player_modal.actions.moderation.options.set_admin")}
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleWipe}
+          disabled={!userHasPerm("all_permissions", playerPerms)}
+        >
+          {t("nui_menu.player_modal.actions.moderation.options.wipe")}
         </Button>
       </Box>
       <Typography className={classes.sectionTitle}>

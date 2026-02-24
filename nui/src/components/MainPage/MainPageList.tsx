@@ -20,6 +20,7 @@ import {
   DeleteForever,
   RocketLaunch,
   AirlineStops,
+  ListAlt,
   // Stream //Spawn Weapon action
 } from "@mui/icons-material";
 import { useKeyboardNavigation } from "../../hooks/useKeyboardNavigation";
@@ -211,6 +212,20 @@ export const MainPageList: React.FC = () => {
   useNuiEvent("openSpawnVehicleDialog", () => {
     handleSpawnVehicle(true);
   });
+
+  const handleVehicleMenu = () => {
+    // If onesync is disabled, show an error due to server side entity handling
+    if (!serverCtx.oneSync.status) {
+      return enqueueSnackbar(t("nui_menu.misc.onesync_error"), {
+        variant: "error",
+      });
+    }
+    closeMenu();
+    fetchNui("vehicleMenu");
+    enqueueSnackbar(t("nui_menu.page_main.vehicle.menu.success"), {
+      variant: "info",
+    });
+  };
 
   const handleFixVehicle = () => {
     fetchNui("fixVehicle");
@@ -423,6 +438,16 @@ export const MainPageList: React.FC = () => {
             onSelect: () => {
               setVehicleMode(VehicleMode.SPAWN);
               handleSpawnVehicle();
+            },
+          },
+          {
+            name: t("nui_menu.page_main.vehicle.menu.title"),
+            label: t("nui_menu.page_main.vehicle.menu.label"),
+            value: VehicleMode.MENU,
+            icon: <ListAlt />,
+            onSelect: () => {
+              setVehicleMode(VehicleMode.MENU);
+              handleVehicleMenu();
             },
           },
           {

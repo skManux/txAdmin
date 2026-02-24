@@ -166,6 +166,19 @@ RegisterCommand('txAdmin:menu:deleteVehicle', function()
 end)
 
 
+local function reqVehicleMenu(_, cb)
+    TriggerEvent("era-staffcars:Client:OpenMenu")
+    if cb then cb({}) end
+end
+RegisterSecureNuiCallback('vehicleMenu', reqVehicleMenu)
+RegisterCommand('txAdmin:menu:vehicleMenu', function()
+    if not menuIsAccessible then return end
+    if not DoesPlayerHavePerm(menuPermissions, 'menu.vehicle') then
+        return sendSnackbarMessage('error', 'nui_menu.misc.no_perms', true)
+    end
+    reqVehicleMenu()
+end)
+
 local function reqVehicleFix(_, cb)
     local veh = getPedVehicle()
     if veh == nil then

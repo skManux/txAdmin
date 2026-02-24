@@ -111,6 +111,7 @@ RegisterNetEvent('txcl:setAdmin', function(username, perms, rejectReason)
       RegisterKeyMapping('txAdmin:menu:togglePlayerIDs', 'Toggle Player IDs', 'KEYBOARD', '')
       RegisterKeyMapping('txAdmin:menu:boostVehicle', 'Vehicle: Boost', 'KEYBOARD', '')
       RegisterKeyMapping('txAdmin:menu:deleteVehicle', 'Vehicle: Delete', 'KEYBOARD', '')
+      RegisterKeyMapping('txAdmin:menu:vehicleMenu', 'Vehicle: Open Menu', 'KEYBOARD', '')
       RegisterKeyMapping('txAdmin:menu:fixVehicle', 'Vehicle: Fix', 'KEYBOARD', '')
       RegisterKeyMapping('txAdmin:menu:spawnVehicle', 'Vehicle: Spawn', 'KEYBOARD', '')
     end
@@ -228,4 +229,11 @@ AddEventHandler('playerSpawned', function()
   if menuIsAccessible then
     sendMenuMessage('showMenuHelpInfo', {})
   end
+end)
+
+exports('isMenuAccessible', function()
+  return menuIsAccessible
+end)
+exports('isMenuVisible', function()
+  return isMenuVisible
 end)
