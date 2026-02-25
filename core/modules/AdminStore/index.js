@@ -571,7 +571,7 @@ export default class AdminStore {
 
         const masters = jsonData.filter((x) => x.master);
         if (masters.length !== 1) {
-            return callError('must have exactly 1 master account');
+            //return callError('must have exactly 1 master account');
         }
 
         //Migrate admin stuff

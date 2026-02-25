@@ -6,6 +6,8 @@ import {
     licenseBanner,
 } from './utils';
 
+//Load .env if present (for local builds)
+try { process.loadEnvFile(); } catch {}
 
 //Detect the tag/version and set the .cienv file
 const { txVersion, isPreRelease, preReleaseExpiration } = getPublishVersion(false);

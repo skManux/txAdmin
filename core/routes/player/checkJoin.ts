@@ -11,6 +11,7 @@ import humanizeDuration, { Unit } from 'humanize-duration';
 import consoleFactory from '@lib/console';
 import { TimeCounter } from '@modules/Metrics/statsUtils';
 import { InitializedCtx } from '@modules/WebServer/ctxTypes';
+import got from '@lib/got';
 const console = consoleFactory(modulename);
 const xss = xssInstancer();
 
@@ -127,6 +128,14 @@ export default async function PlayerCheckJoin(ctx: InitializedCtx) {
             const checkTime = new TimeCounter();
             const result = await checkDiscordRoles(validIdsArray, validIdsObject, playerName);
             txCore.metrics.txRuntime.whitelistCheckTime.count(checkTime.stop().milliseconds);
+            if (!result.allow) return sendTypedResp(result);
+        }
+
+        //Checking external resource export via HTTP handler
+        {
+            const checkTime = new TimeCounter();
+            const result = await checkExternalResource(validIdsArray, playerName);
+            checkTime.stop();
             if (!result.allow) return sendTypedResp(result);
         }
 
@@ -394,6 +403,62 @@ async function checkDiscordRoles(
         errorTitle,
         `${errorMessage} <br>
         ${prepCustomMessage(txConfig.whitelist.rejectionMessage)}`
+    );
+    return { allow: false, reason };
+}
+
+
+/**
+ * Calls an export from an external FiveM resource via its HTTP handler.
+ * The target resource must register a SetHttpHandler that handles POST /checkPlayer
+ * and returns { allow: boolean, reason?: string }.
+ *
+ * Example Lua side (in your resource's server script):
+ *   SetHttpHandler(function(req, res)
+ *       if req.path ~= '/checkPlayer' then return end
+ *       req.setDataHandler(function(body)
+ *           local data = json.decode(body)
+ *           local result = exports['your_resource']:checkPlayer(data.identifiers, data.playerName)
+ *           res.writeHead(200, {['Content-Type'] = 'application/json'})
+ *           res.send(json.encode(result))
+ *       end)
+ *   end)
+ */
+async function checkExternalResource(
+    validIdsArray: string[],
+    playerName: string
+): Promise<AllowRespType | DenyRespType> {
+    const netEndpoint = txCore.fxRunner.child?.netEndpoint;
+    if (!netEndpoint) {
+        console.warn('checkExternalResource: FXServer not ready, skipping check.');
+        return { allow: true };
+    }
+
+    // Change 'your_resource' to the name of the FiveM resource that exposes the HTTP handler
+    const resourceName = 'your_resource';
+
+    let respData: { allow: boolean; reason?: string };
+    try {
+        const resp = await got.post(`http://${netEndpoint}/${resourceName}/checkPlayer`, {
+            json: {
+                identifiers: validIdsArray,
+                playerName,
+            },
+            timeout: { request: 5000 },
+            retry: { limit: 0 },
+            throwHttpErrors: false,
+        });
+        respData = JSON.parse(resp.body);
+    } catch (error) {
+        console.warn(`checkExternalResource: request failed: ${(error as Error).message}`);
+        return { allow: true }; // fail-open: allow join if the resource is unreachable
+    }
+
+    if (respData?.allow) return { allow: true };
+
+    const reason = rejectMessageTemplate(
+        'Accesso Negato',
+        respData?.reason ?? 'Non sei autorizzato ad accedere al server.'
     );
     return { allow: false, reason };
 }
