@@ -203,10 +203,8 @@ export default class DiscordBot {
         //Updating bot activity
         try {
             const serverClients = txCore.fxPlayerlist.onlineCount;
-            const serverMaxClients = txCore.cacheStore.get('fxsRuntime:maxClients') ?? '??';
-            const serverName = txConfig.general.serverName;
-            const message = `[${serverClients}/${serverMaxClients}] on ${serverName}`;
-            this.#client.user.setActivity(message, { type: ActivityType.Watching });
+            const message = `${serverClients} players online`;
+            this.#client.user.setActivity(message, { type: ActivityType.Playing });
         } catch (error) {
             console.verbose.warn(`Failed to set bot activity: ${(error as Error).message}`);
         }
