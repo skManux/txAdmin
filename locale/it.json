@@ -48,8 +48,8 @@
             "insufficient_ids": "Non hai l'identificatore <code>discord</code>, che è richiesto per verificare se sei entrato nel nostro server Discord. Apri l'applicazione desktop di Discord e riprova (l'app Web non funzionerà).",
             "deny_notmember_title": "Devi unirti al nostro server Discord per poter giocare.",
             "deny_notmember_message": "Per favore, unisciti al server Discord %{guildname} richiedi il ruolo Whitelist e riprova a connetterti.",
-            "deny_noroles_title": "Non hai un ruolo autorizzato richiesto per unirti.",
-            "deny_noroles_message": "Per entrare a giocare su questo server devi avere almeno uno dei ruoli richiesti sul server Discord: %{guildname}."
+            "deny_noroles_title": "HALT! Il server è in manutenzione!",
+            "deny_noroles_message": "L'accesso è riservato solo a developer e amministrazione. Per favore, unisciti al server Discord %{guildname} per ulteriori informazioni."
         },
         "approved_license": {
             "mode_title": "Questo server è in modalità <strong>Solo Licenza Autorizzata</strong>.",
