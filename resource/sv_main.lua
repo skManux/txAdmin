@@ -235,11 +235,11 @@ TX_EVENT_HANDLERS.playerKicked = function(eventData)
     if eventData.target == -1 then
         txPrint("Kicking everyone: "..eventData.reason)
         for _, pid in pairs(GetPlayers()) do
-            DropPlayer(pid, '[txAdmin] ' .. eventData.dropMessage)
+            DropPlayer(pid, '[eraAdmin] ' .. eventData.dropMessage)
         end
     else
         txPrint("Kicking: #"..eventData.target..": "..eventData.reason)
-        DropPlayer(eventData.target, '[txAdmin] ' .. eventData.dropMessage)
+        DropPlayer(eventData.target, '[eraAdmin] ' .. eventData.dropMessage)
     end
 end
 
@@ -321,7 +321,7 @@ TX_EVENT_HANDLERS.playerBanned = function(eventData)
                     if searchIdentifier == playerIdentifier then
                         txPrint("[handleBanEvent] Kicking #"..playerID..": "..eventData.reason)
                         kickCount = kickCount + 1
-                        DropPlayer(playerID, '[txAdmin] ' .. eventData.kickMessage)
+                        DropPlayer(playerID, '[eraAdmin] ' .. eventData.kickMessage)
                         found = true
                         break
                     end
@@ -343,7 +343,7 @@ TX_EVENT_HANDLERS.serverShuttingDown = function(eventData)
     TX_IS_SERVER_SHUTTING_DOWN = true
     local players = GetPlayers()
     for _, serverID in pairs(players) do
-        DropPlayer(serverID, '[txAdmin] ' .. eventData.message)
+        DropPlayer(serverID, '[eraAdmin] ' .. eventData.message)
     end
 end
 
@@ -397,7 +397,7 @@ local function handleConnections(name, setKickReason, d)
     -- if server is shutting down
     if TX_IS_SERVER_SHUTTING_DOWN then
         CancelEvent()
-        setKickReason("[txAdmin] Server is shutting down, try again in a few seconds.")
+        setKickReason("[eraAdmin] Il server si sta spegnendo. Riprova tra poco.")
         return
     end
 
@@ -415,19 +415,19 @@ local function handleConnections(name, setKickReason, d)
             playerName = name
         }
         if #exData.playerIds <= 1 then
-            d.done("\n[txAdmin] This server has bans or whitelisting enabled, which requires every player to have at least one identifier, but you have none.\nIf you own this server, make sure sv_lan is disabled in your server.cfg.")
+            d.done("\n[eraAdmin] Per entrare in questo server devi avere almeno un identifier. Se pensi sia un errore, apri un ticket su discord.gg/eraroleplay")
             return
         end
 
         --Attempt to validate the user
-        d.update("\n[txAdmin] Checking banlist/whitelist... (0/5)")
+        d.update("\n[eraAdmin] Controllo blacklist... (0/5)")
         CreateThread(function()
             local attempts = 0
             local isDone = false;
             --Do 5 attempts (2.5 mins)
             while isDone == false and attempts < 5 do
                 attempts = attempts + 1
-                d.update("\n[txAdmin] Checking banlist/whitelist... ("..attempts.."/5)")
+                d.update("\n[eraAdmin] Controllo blacklist... ("..attempts.."/5)")
                 PerformHttpRequest(url, function(httpCode, rawData, resultHeaders)
                     if isDone then return end
                     -- rawData = nil
@@ -445,7 +445,7 @@ local function handleConnections(name, setKickReason, d)
                                 d.done()
                                 isDone = true
                             else
-                                local reason = respObj.reason or "\n[txAdmin] no reason provided"
+                                local reason = respObj.reason or "\n[eraAdmin] Nessuna motivazione fornita"
                                 d.done("\n"..reason)
                                 isDone = true
                             end
@@ -457,7 +457,7 @@ local function handleConnections(name, setKickReason, d)
 
             --Block client if failed
             if not isDone then
-                d.done("\n[txAdmin] Failed to validate your banlist/whitelist status. Try again in a few minutes.")
+                d.done("\n[eraAdmin] Non è stato possibile raggiungere la blacklist. Riprova tra qualche minuto.")
                 isDone = true
             end
         end)

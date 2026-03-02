@@ -1,9 +1,9 @@
 import { atom, useSetAtom } from 'jotai';
 import { atomEffect } from 'jotai-effect'
-import faviconDefault from '/favicon_default.svg?url';
-import faviconOnline from '/favicon_online.svg?url';
-import faviconPartial from '/favicon_partial.svg?url';
-import faviconOffline from '/favicon_offline.svg?url';
+import faviconDefault from '/img/favicon_default.png?url';
+import faviconOnline from '/img/favicon_online.png?url';
+import faviconPartial from '/img/favicon_partial.png?url';
+import faviconOffline from '/img/favicon_offline.png?url';
 import { globalStatusAtom } from './status';
 import { playerCountAtom } from './playerlist';
 import { FxMonitorHealth } from '@shared/enums';
